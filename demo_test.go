@@ -1,4 +1,4 @@
-package plugindemo_test
+package priv_plugindemo_test
 
 import (
 	"context"
@@ -6,11 +6,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/traefik/plugindemo"
+	priv_plugindemo "github.com/NEwa-05/priv-plugindemo"
 )
 
 func TestDemo(t *testing.T) {
-	cfg := plugindemo.CreateConfig()
+	cfg := priv_plugindemo.CreateConfig()
 	cfg.Headers["X-Host"] = "[[.Host]]"
 	cfg.Headers["X-Method"] = "[[.Method]]"
 	cfg.Headers["X-URL"] = "[[.URL]]"
@@ -20,7 +20,7 @@ func TestDemo(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, err := plugindemo.New(ctx, next, cfg, "demo-plugin")
+	handler, err := priv_plugindemo.New(ctx, next, cfg, "demo-plugin")
 	if err != nil {
 		t.Fatal(err)
 	}
